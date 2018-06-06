@@ -1,21 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Home from './components/Home';
-import About from './components/About';
-import Navbar from './components/CustomNavbar';
+import React, { Component } from "react";
+import "./App.css";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Home from "./components/Home";
+import About from "./components/About";
+import Navbar from "./components/CustomNavbar";
+import NotFound from "./components/NotFound";
 
 class App extends Component {
   render() {
     return (
-      <Router>
-      <div>
-        <Navbar />
-        <Route exact path="/" component={Home} />
-        <Route path="/about" component={About} />
-      </div>
-    </Router>
+      <BrowserRouter>
+        <div>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/about" component={About} />
+            <Route component={NotFound} />
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }
