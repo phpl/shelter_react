@@ -1,30 +1,22 @@
-const initialState = {
-  animals: [
-    {
-      name: "test_name",
-      commonName: "common_test_name",
-      scientificName: "scientific_test_name",
-      gender: "Male",
-      adoptionInProgress: false
-    }
-  ]
-};
-
-export default function home(state = initialState, action) {
+export default function home(state = {animals:[]}, action) {
   let animalList = [...state.animals];
 
   switch (action.type) {
     case "ADD_ANIMAL":
+    console.log(action.payload)
       return { ...state, animals: [...state.animals, action.payload] };
 
     case "UPDATE_ANIMAL":
-      const { id, animal } = action.payload;
-      animalList[id] = animal;
+      const { index, animal } = action.payload;
+      animalList[index] = animal;
       return { ...state, animals: animalList };
 
     case "DELETE_ANIMAL":
       animalList.splice(action.payload, 1);
       return { ...state, animals: animalList };
+
+    case "FETCH_ANIMALS":
+      return { ...state, animals: action.payload };
 
     default:
       return state;

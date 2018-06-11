@@ -27,6 +27,10 @@ class Home extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.fetchAnimals();
+  }
+
   resetForm = () => {
     this.setState({
       animal: {
@@ -42,7 +46,11 @@ class Home extends Component {
 
   selectForEdit = id => {
     let animalToUpdate = this.props.animals[id];
-    let newState = {...this.state, animal: animalToUpdate, animalUpdateId: id}
+    let newState = {
+      ...this.state,
+      animal: animalToUpdate,
+      animalUpdateId: id
+    };
     this.setState(newState);
   };
 
@@ -50,12 +58,12 @@ class Home extends Component {
     e.preventDefault();
 
     if (this.state.animalUpdateId == null) {
-    this.props.addAnimal(this.state.animal);
+      this.props.addAnimal(this.state.animal).then(this.resetForm);
     } else {
-    this.props.updateAnimal(this.state.animalUpdateId, this.state.animal);
+      this.props
+        .updateAnimal(this.state.animalUpdateId, this.state.animal)
+        .then(this.resetForm);
     }
-
-    this.resetForm();
   };
 
   render() {
@@ -68,7 +76,11 @@ class Home extends Component {
             label="Name"
             placeholder="Enter animal name"
             value={this.state.animal.name}
-            onChange={e => this.setState({ animal: { ...this.state.animal, name: e.target.value } })}
+            onChange={e =>
+              this.setState({
+                animal: { ...this.state.animal, name: e.target.value }
+              })
+            }
           />
           <FieldGroup
             id="formControlsText"
@@ -77,7 +89,9 @@ class Home extends Component {
             placeholder="Enter animal common name"
             value={this.state.animal.commonName}
             onChange={e =>
-              this.setState({ animal: { ...this.state.animal, commonName: e.target.value } })
+              this.setState({
+                animal: { ...this.state.animal, commonName: e.target.value }
+              })
             }
           />
           <FieldGroup
@@ -87,7 +101,9 @@ class Home extends Component {
             placeholder="Enter animal scientific name"
             value={this.state.animal.scientificName}
             onChange={e =>
-              this.setState({ animal: { ...this.state.animal, scientificName: e.target.value } })
+              this.setState({
+                animal: { ...this.state.animal, scientificName: e.target.value }
+              })
             }
           />
 
@@ -97,7 +113,9 @@ class Home extends Component {
               componentClass="select"
               placeholder="select"
               onChange={e =>
-                this.setState({ animal: { ...this.state.animal, gender: e.target.value } })
+                this.setState({
+                  animal: { ...this.state.animal, gender: e.target.value }
+                })
               }
             >
               <option value="Male">Male</option>
@@ -153,13 +171,16 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addAnimal: animal => {
-      dispatch(home.addAnimal(animal));
+      return dispatch(home.addAnimal(animal));
     },
     updateAnimal: (id, animal) => {
-      dispatch(home.updateAnimal(id, animal));
+      return dispatch(home.updateAnimal(id, animal));
     },
     deleteAnimal: id => {
       dispatch(home.deleteAnimal(id));
+    },
+    fetchAnimals: () => {
+      dispatch(home.fetchAnimals());
     }
   };
 };

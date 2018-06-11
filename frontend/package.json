@@ -40,6 +40,7 @@
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.4",
     "url-loader": "0.5.9",
@@ -96,5 +97,6 @@
   },
   "devDependencies": {
     "webpack-bundle-tracker": "^0.2.0"
-  }
+  },
+  "proxy": "http://localhost:8000/"
 }
