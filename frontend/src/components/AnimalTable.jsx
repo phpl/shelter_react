@@ -21,7 +21,7 @@ export default class About extends Component {
               <td>{animal.name}</td>
               <td>{animal.commonName}</td>
               <td>{animal.scientificName}</td>
-              <td>{animal.amgender}</td>
+              <td>{animal.gender}</td>
               <td>{animal.adoptionInProgress === true ? "YES" : "NO"}</td>
               <td>
                 <Button onClick={() => this.props.selectForEdit(id)}>
