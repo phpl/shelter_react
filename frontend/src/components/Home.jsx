@@ -1,16 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  Grid,
-  Table,
-  FormGroup,
-  FormControl,
-  ControlLabel,
-  Button,
-  HelpBlock
-} from "react-bootstrap";
+import { Grid } from "react-bootstrap";
 import "./Home.css";
 import { home } from "../actions";
+import AnimalForm from "./AnimalForm.jsx";
+import AnimalTable from "./AnimalTable.jsx";
 
 class Home extends Component {
   constructor(props) {
@@ -25,6 +19,13 @@ class Home extends Component {
       },
       animalUpdateId: null
     };
+  }
+
+  onChangeForm(e) {
+    const { name, value } = e.target;
+    this.setState({
+      animal: { ...this.state.animal, [name]: value }
+    });
   }
 
   componentDidMount() {
@@ -69,94 +70,17 @@ class Home extends Component {
   render() {
     return (
       <Grid>
-        <form onSubmit={this.submitAnimal}>
-          <FieldGroup
-            id="formControlsText"
-            type="text"
-            label="Name"
-            placeholder="Enter animal name"
-            value={this.state.animal.name}
-            onChange={e =>
-              this.setState({
-                animal: { ...this.state.animal, name: e.target.value }
-              })
-            }
-          />
-          <FieldGroup
-            id="formControlsText"
-            type="text"
-            label="Common Name"
-            placeholder="Enter animal common name"
-            value={this.state.animal.commonName}
-            onChange={e =>
-              this.setState({
-                animal: { ...this.state.animal, commonName: e.target.value }
-              })
-            }
-          />
-          <FieldGroup
-            id="formControlsText"
-            type="text"
-            label="Scientific Name"
-            placeholder="Enter animal scientific name"
-            value={this.state.animal.scientificName}
-            onChange={e =>
-              this.setState({
-                animal: { ...this.state.animal, scientificName: e.target.value }
-              })
-            }
-          />
-
-          <FormGroup controlId="formControlsSelect">
-            <ControlLabel>Gender</ControlLabel>
-            <FormControl
-              componentClass="select"
-              placeholder="select"
-              onChange={e =>
-                this.setState({
-                  animal: { ...this.state.animal, gender: e.target.value }
-                })
-              }
-            >
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </FormControl>
-          </FormGroup>
-          <Button onClick={this.resetForm}>Reset</Button>
-          <Button type="submit">Add/Update animal</Button>
-        </form>
-        <Table responsive>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Common name</th>
-              <th>Scientific name</th>
-              <th>Gender</th>
-              <th>Adopted</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.animals.map((animal, id) => (
-              <tr key={`animal_${id}`}>
-                <td>{animal.name}</td>
-                <td>{animal.commonName}</td>
-                <td>{animal.scientificName}</td>
-                <td>{animal.gender}</td>
-                <td>{animal.adoptionInProgress === true ? "YES" : "NO"}</td>
-                <td>
-                  <Button onClick={() => this.selectForEdit(id)}>
-                    Edit Animal Data
-                  </Button>
-                </td>
-                <td>
-                  <Button onClick={() => this.props.deleteAnimal(id)}>
-                    Delete Animal
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <AnimalForm
+          animal={this.state.animal}
+          onChange={this.onChangeForm.bind(this)}
+          submitAnimal={this.submitAnimal.bind(this)}
+          resetForm={this.resetForm.bind(this)}
+        />
+        <AnimalTable
+          animals={this.props.animals}
+          selectForEdit={this.selectForEdit.bind(this)}
+          deleteAnimal={this.props.deleteAnimal.bind(this)}
+        />
       </Grid>
     );
   }
@@ -189,13 +113,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Home);
-
-function FieldGroup({ id, label, help, ...props }) {
-  return (
-    <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl {...props} />
-      {help && <HelpBlock>{help}</HelpBlock>}
-    </FormGroup>
-  );
-}
