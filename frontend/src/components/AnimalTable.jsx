@@ -9,7 +9,7 @@ export default class About extends Component {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Common ne</th>
+            <th>Common name</th>
             <th>Scientific name</th>
             <th>Gender</th>
             <th>Adopted</th>
