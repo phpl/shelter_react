@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import { Table, Button } from "react-bootstrap";
-import './AnimalTable.css';
+import "./AnimalTable.css";
 
 export default class About extends Component {
   render() {
     return (
-        <Table responsive>
+      <Table responsive>
         <thead>
           <tr>
             <th>Name</th>
@@ -13,6 +13,9 @@ export default class About extends Component {
             <th>Scientific name</th>
             <th>Gender</th>
             <th>Adopted</th>
+            <th />
+            <th />
+            <th />
           </tr>
         </thead>
         <tbody>
@@ -25,7 +28,7 @@ export default class About extends Component {
               <td>{animal.adoptionInProgress === true ? "YES" : "NO"}</td>
               <td>
                 <Button onClick={() => this.props.selectForEdit(id)}>
-                  Edit Animal Data
+                  Edit Animal
                 </Button>
               </td>
               <td>
@@ -33,10 +36,17 @@ export default class About extends Component {
                   Delete Animal
                 </Button>
               </td>
+              <td>
+                <Button
+                  onClick={() => this.props.invertAnimalAdoptionState(id)}
+                >
+                  Change Animal adoption
+                </Button>
+              </td>
             </tr>
           ))}
         </tbody>
       </Table>
-    )
+    );
   }
 }

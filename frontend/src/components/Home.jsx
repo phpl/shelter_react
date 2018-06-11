@@ -22,7 +22,7 @@ class Home extends Component {
   }
 
   onChangeForm(e) {
-    console.log(e.target.value)
+    console.log(e.target.value);
     const { name, value } = e.target;
     this.setState({
       animal: { ...this.state.animal, [name]: value }
@@ -56,6 +56,21 @@ class Home extends Component {
     this.setState(newState);
   };
 
+  invertAnimalAdoptionState = id => {
+    let animalToUpdate = this.props.animals[id];
+    animalToUpdate.adoptionInProgress = !animalToUpdate.adoptionInProgress;
+    let newState = {
+      ...this.state,
+      animal: animalToUpdate,
+      animalUpdateId: id
+    };
+    this.setState(newState, () =>
+      this.props
+        .updateAnimal(this.state.animalUpdateId, this.state.animal)
+        .then(this.resetForm())
+    );
+  };
+
   submitAnimal = e => {
     e.preventDefault();
 
@@ -81,6 +96,7 @@ class Home extends Component {
           animals={this.props.animals}
           selectForEdit={this.selectForEdit.bind(this)}
           deleteAnimal={this.props.deleteAnimal.bind(this)}
+          invertAnimalAdoptionState={this.invertAnimalAdoptionState.bind(this)}
         />
       </Grid>
     );
