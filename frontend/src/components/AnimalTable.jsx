@@ -1,34 +1,9 @@
 import React, { Component } from "react";
 import { Table, Button } from "react-bootstrap";
 import "./AnimalTable.css";
-import Modal from "react-modal";
-import AnimalForm from "./AnimalForm.jsx";
-
-Modal.setAppElement("#root");
+import FormModal from "./FormModal.jsx";
 
 export default class AnimalTable extends Component {
-  constructor() {
-    super();
-    this.state = {
-      showModal: false
-    };
-
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-  }
-
-  customStyles = {
-    content: {}
-  };
-
-  handleOpenModal() {
-    this.setState({ showModal: true });
-  }
-
-  handleCloseModal() {
-    this.setState({ showModal: false });
-  }
-
   render() {
     return (
       <Table responsive>
@@ -40,22 +15,15 @@ export default class AnimalTable extends Component {
             <th>Gender</th>
             <th>Adopted</th>
             <th>
-              <div>
-                <Button onClick={this.handleOpenModal}>Add Animal</Button>
-                <Modal
-                  isOpen={this.state.showModal}
-                  contentLabel="Add animal"
-                  style={this.customStyles}
-                >
-                  <AnimalForm
-                    animal={this.props.animal}
-                    onChange={this.props.onChange}
-                    submitAnimal={this.props.submitAnimal}
-                    resetForm={this.props.resetForm}
-                  />
-                  <Button onClick={this.handleCloseModal}>Cancel</Button>
-                </Modal>
-              </div>
+              <FormModal
+                label="Add animal"
+                contentLabel="Add animal"
+                animal={this.props.animal}
+                onChange={this.props.onChange}
+                submitAnimal={this.props.submitAnimal}
+                resetForm={this.props.resetForm}
+                edit={false}
+              />
             </th>
             <th />
             <th />
@@ -70,29 +38,17 @@ export default class AnimalTable extends Component {
               <td>{animal.gender}</td>
               <td>{animal.adoptionInProgress === true ? "YES" : "NO"}</td>
               <td>
-                <div>
-                  <Button
-                    onClick={() => {
-                      this.props.selectForEdit(id);
-                      this.handleOpenModal();
-                    }}
-                  >
-                    Edit Animal
-                  </Button>
-                  <Modal
-                    isOpen={this.state.showModal}
-                    contentLabel="Edit Animal"
-                    style={this.customStyles}
-                  >
-                    <AnimalForm
-                      animal={this.props.animal}
-                      onChange={this.props.onChange}
-                      submitAnimal={this.props.submitAnimal}
-                      resetForm={this.props.resetForm}
-                      handleCloseModal={this.handleCloseModal}
-                    />
-                  </Modal>
-                </div>
+                <FormModal
+                  label="Edit animal"
+                  contentLabel="Edit animal"
+                  animal={this.props.animal}
+                  onChange={this.props.onChange}
+                  submitAnimal={this.props.submitAnimal}
+                  selectForEdit={this.props.selectForEdit}
+                  resetForm={this.props.resetForm}
+                  edit={true}
+                  id={id}
+                />
               </td>
               <td>
                 <Button onClick={() => this.props.deleteAnimal(id)}>

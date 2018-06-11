@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Grid } from "react-bootstrap";
 import "./Home.css";
 import { home } from "../actions";
-import AnimalForm from "./AnimalForm.jsx";
 import AnimalTable from "./AnimalTable.jsx";
 
 class Home extends Component {
