@@ -8,10 +8,15 @@ import {
 } from "react-bootstrap";
 import "./AnimalForm.css";
 
-export default class About extends Component {
+export default class AnimalForm extends Component {
   render() {
     return (
-      <form onSubmit={this.props.submitAnimal}>
+      <form
+        onSubmit={e => {
+          this.props.submitAnimal(e);
+          this.props.handleCloseModal();
+        }}
+      >
         <FieldGroup
           id="formControlsText"
           type="text"
@@ -51,8 +56,9 @@ export default class About extends Component {
             <option value="Female">Female</option>
           </FormControl>
         </FormGroup>
+        <Button onClick={this.props.handleCloseModal}>Cancel</Button>        
         <Button onClick={this.props.resetForm}>Reset</Button>
-        <Button type="submit">Add/Update animal</Button>
+        <Button type="submit">Submit</Button>
       </form>
     );
   }

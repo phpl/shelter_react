@@ -86,13 +86,11 @@ class Home extends Component {
   render() {
     return (
       <Grid>
-        <AnimalForm
+        <AnimalTable
           animal={this.state.animal}
           onChange={this.onChangeForm.bind(this)}
           submitAnimal={this.submitAnimal.bind(this)}
           resetForm={this.resetForm.bind(this)}
-        />
-        <AnimalTable
           animals={this.props.animals}
           selectForEdit={this.selectForEdit.bind(this)}
           deleteAnimal={this.props.deleteAnimal.bind(this)}
