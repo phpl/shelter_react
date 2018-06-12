@@ -4,6 +4,7 @@ import {
   FormControl,
   ControlLabel,
   Button,
+  ButtonGroup,
   HelpBlock
 } from "react-bootstrap";
 import "./AnimalForm.css";
@@ -56,21 +57,23 @@ export default class AnimalForm extends Component {
             <option value="Female">Female</option>
           </FormControl>
         </FormGroup>
-        <Button
-          bsStyle="primary"
-          onClick={() => {
-            this.props.resetForm();
-            this.props.handleCloseModal();
-          }}
-        >
-          Cancel
-        </Button>
-        <Button bsStyle="danger" onClick={this.props.resetForm}>
-          Reset
-        </Button>
-        <Button bsStyle="success" type="submit">
-          Submit
-        </Button>
+        <ButtonGroup>
+          <Button
+            bsStyle="primary"
+            onClick={() => {
+              this.props.resetForm();
+              this.props.handleCloseModal();
+            }}
+          >
+            Cancel
+          </Button>
+          <Button bsStyle="danger" onClick={this.props.resetForm}>
+            Reset
+          </Button>
+          <Button bsStyle="success" type="submit">
+            Submit
+          </Button>
+        </ButtonGroup>
       </form>
     );
   }

@@ -51,6 +51,17 @@ export default class AnimalTable extends Component {
             <th>Gender</th>
             <th>Adopted</th>
             <th>
+              <AdoptionFilterForm
+                filterHandleChange={this.filterHandleChange.bind(this)}
+              />
+            </th>
+            <th>
+              <FilterForm
+                filter={this.state.filterText}
+                filterHandleChange={this.filterHandleChange.bind(this)}
+              />
+            </th>
+            <th>
               <FormModal
                 buttonStyle="success"
                 label="Add animal"
@@ -60,17 +71,6 @@ export default class AnimalTable extends Component {
                 submitAnimal={this.props.submitAnimal}
                 resetForm={this.props.resetForm}
                 edit={false}
-              />
-            </th>
-            <th>
-              <AdoptionFilterForm
-                filterHandleChange={this.filterHandleChange.bind(this)}
-              />
-            </th>
-            <th>
-              <FilterForm
-                filter={this.state.filterText}
-                filterHandleChange={this.filterHandleChange.bind(this)}
               />
             </th>
           </tr>
@@ -84,17 +84,12 @@ export default class AnimalTable extends Component {
               <td>{animal.gender}</td>
               <td>{animal.adoptionInProgress === true ? "YES" : "NO"}</td>
               <td>
-                <FormModal
-                  buttonStyle="primary"
-                  label="Edit animal"
-                  contentLabel="Edit animal"
-                  animal={this.props.animal}
-                  onChange={this.props.onChange}
-                  submitAnimal={this.props.submitAnimal}
-                  selectForEdit={this.props.selectForEdit}
-                  resetForm={this.props.resetForm}
-                  edit={true}
+                <ConfirmationModal
                   id={animal.id}
+                  buttonStyle="primary"
+                  action={this.props.invertAnimalAdoptionState}
+                  buttonLabel="Change Animal Adoption"
+                  actionLabel="change this animal adoption state"
                 />
               </td>
               <td>
@@ -107,12 +102,17 @@ export default class AnimalTable extends Component {
                 />
               </td>
               <td>
-                <ConfirmationModal
-                  id={animal.id}
+                <FormModal
                   buttonStyle="primary"
-                  action={this.props.invertAnimalAdoptionState}
-                  buttonLabel="Change Animal Adoption"
-                  actionLabel="change this animal adoption state"
+                  label="Edit animal"
+                  contentLabel="Edit animal"
+                  animal={this.props.animal}
+                  onChange={this.props.onChange}
+                  submitAnimal={this.props.submitAnimal}
+                  selectForEdit={this.props.selectForEdit}
+                  resetForm={this.props.resetForm}
+                  edit={true}
+                  id={animal.id}
                 />
               </td>
             </tr>

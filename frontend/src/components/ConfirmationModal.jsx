@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, ButtonGroup, Modal } from "react-bootstrap";
 
 export default class FormModal extends Component {
   constructor(props, context) {
@@ -36,16 +36,18 @@ export default class FormModal extends Component {
             <p>Are you sure you want to {this.props.actionLabel}?</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleClose}>No</Button>
-            <Button
-              bsStyle={this.props.buttonStyle}
-              onClick={() => {
-                this.props.action(this.props.id);
-                this.handleClose();
-              }}
-            >
-              Yes
-            </Button>
+            <ButtonGroup>
+              <Button onClick={this.handleClose}>No</Button>
+              <Button
+                bsStyle={this.props.buttonStyle}
+                onClick={() => {
+                  this.props.action(this.props.id);
+                  this.handleClose();
+                }}
+              >
+                Yes
+              </Button>
+            </ButtonGroup>
           </Modal.Footer>
         </Modal>
       </div>
