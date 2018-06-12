@@ -45,7 +45,7 @@ class Home extends Component {
   };
 
   selectForEdit = id => {
-    let animalToUpdate = this.props.animals[id];
+    const animalToUpdate = this.props.animals.find(animal => (animal.id === id));
     let newState = {
       ...this.state,
       animal: animalToUpdate,
@@ -55,7 +55,7 @@ class Home extends Component {
   };
 
   invertAnimalAdoptionState = id => {
-    let animalToUpdate = this.props.animals[id];
+    const animalToUpdate = this.props.animals.find(animal => (animal.id === id));
     animalToUpdate.adoptionInProgress = !animalToUpdate.adoptionInProgress;
     let newState = {
       ...this.state,
@@ -110,11 +110,11 @@ const mapDispatchToProps = dispatch => {
     addAnimal: animal => {
       return dispatch(home.addAnimal(animal));
     },
-    updateAnimal: (id, animal) => {
-      return dispatch(home.updateAnimal(id, animal));
+    updateAnimal: (animalId, animal) => {
+      return dispatch(home.updateAnimal(animalId, animal));
     },
-    deleteAnimal: id => {
-      dispatch(home.deleteAnimal(id));
+    deleteAnimal: animalId => {
+      dispatch(home.deleteAnimal(animalId));
     },
     fetchAnimals: () => {
       dispatch(home.fetchAnimals());

@@ -13,11 +13,10 @@ export const addAnimal = animal => {
   };
 };
 
-export const updateAnimal = (index, animal) => {
-  return (dispatch, getState) => {
-    let headers = { "Content-Type": "application/json" };
-    let body = JSON.stringify({ ...animal });
-    let animalId = getState().home.animals[index].id;
+export const updateAnimal = (animalId, animal) => {
+  return (dispatch) => {
+    const headers = { "Content-Type": "application/json" };
+    const body = JSON.stringify({ ...animal });
 
     return fetch(`/api/animals/${animalId}/`, { headers, method: "PUT", body })
       .then(result => result.json())
@@ -25,7 +24,7 @@ export const updateAnimal = (index, animal) => {
         return dispatch({
           type: "UPDATE_ANIMAL",
           payload: {
-            index,
+            animalId,
             animal
           }
         });
@@ -33,10 +32,9 @@ export const updateAnimal = (index, animal) => {
   };
 };
 
-export const deleteAnimal = index => {
+export const deleteAnimal = animalId => {
   return (dispatch, getState) => {
-    let headers = { "Content-Type": "application/json" };
-    let animalId = getState().home.animals[index].id;
+    const headers = { "Content-Type": "application/json" };
 
     return fetch(`/api/animals/${animalId}/`, {
       headers,
@@ -45,7 +43,7 @@ export const deleteAnimal = index => {
       if (result.ok) {
         return dispatch({
           type: "DELETE_ANIMAL",
-          payload: index
+          payload: animalId
         });
       }
     });
