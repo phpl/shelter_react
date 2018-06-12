@@ -17,6 +17,7 @@ export default class AnimalTable extends Component {
             <th>Adopted</th>
             <th>
               <FormModal
+                buttonStyle="success"
                 label="Add animal"
                 contentLabel="Add animal"
                 animal={this.props.animal}
@@ -40,6 +41,7 @@ export default class AnimalTable extends Component {
               <td>{animal.adoptionInProgress === true ? "YES" : "NO"}</td>
               <td>
                 <FormModal
+                  buttonStyle="primary"
                   label="Edit animal"
                   contentLabel="Edit animal"
                   animal={this.props.animal}
@@ -54,6 +56,7 @@ export default class AnimalTable extends Component {
               <td>
                 <ConfirmationModal
                   id={id}
+                  buttonStyle="danger"
                   action={this.props.deleteAnimal}
                   buttonLabel="Delete Animal"
                   actionLabel="delete this animal"
@@ -62,6 +65,7 @@ export default class AnimalTable extends Component {
               <td>
                 <ConfirmationModal
                   id={id}
+                  buttonStyle="primary"
                   action={this.props.invertAnimalAdoptionState}
                   buttonLabel="Change Animal Adoption"
                   actionLabel="change this animal adoption state"

@@ -56,9 +56,21 @@ export default class AnimalForm extends Component {
             <option value="Female">Female</option>
           </FormControl>
         </FormGroup>
-        <Button onClick={this.props.handleCloseModal}>Cancel</Button>        
-        <Button onClick={this.props.resetForm}>Reset</Button>
-        <Button type="submit">Submit</Button>
+        <Button
+          bsStyle="primary"
+          onClick={() => {
+            this.props.resetForm();
+            this.props.handleCloseModal();
+          }}
+        >
+          Cancel
+        </Button>
+        <Button bsStyle="danger" onClick={this.props.resetForm}>
+          Reset
+        </Button>
+        <Button bsStyle="success" type="submit">
+          Submit
+        </Button>
       </form>
     );
   }

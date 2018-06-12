@@ -3,7 +3,6 @@ export default function home(state = {animals:[]}, action) {
 
   switch (action.type) {
     case "ADD_ANIMAL":
-    console.log(action.payload)
       return { ...state, animals: [...state.animals, action.payload] };
 
     case "UPDATE_ANIMAL":

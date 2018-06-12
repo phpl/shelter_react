@@ -18,7 +18,6 @@ export const updateAnimal = (index, animal) => {
     let headers = { "Content-Type": "application/json" };
     let body = JSON.stringify({ ...animal });
     let animalId = getState().home.animals[index].id;
-    console.log(index + " " + animalId);
 
     return fetch(`/api/animals/${animalId}/`, { headers, method: "PUT", body })
       .then(result => result.json())

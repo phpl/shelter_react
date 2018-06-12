@@ -1,58 +1,55 @@
 import React, { Component } from "react";
 import AnimalForm from "./AnimalForm.jsx";
-import { Button } from "react-bootstrap";
-import Modal from "react-modal";
-
-Modal.setAppElement("#root");
+import { Button, Modal } from "react-bootstrap";
 
 export default class FormModal extends Component {
-  constructor() {
-    super();
+  constructor(props, context) {
+    super(props, context);
+
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+
     this.state = {
-      showModal: false
+      show: false
     };
-
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
-  customStyles = {
-    content: {}
-  };
-
-  handleOpenModal() {
-    this.setState({ showModal: true });
+  handleClose() {
+    this.setState({ show: false });
   }
 
-  handleCloseModal() {
-    this.setState({ showModal: false });
+  handleShow() {
+    this.setState({ show: true });
   }
 
   render() {
     return (
       <div>
         <Button
+          bsStyle={this.props.buttonStyle}
           onClick={() => {
             if (this.props.edit) {
               this.props.selectForEdit(this.props.id);
             }
-            this.handleOpenModal();
+            this.handleShow();
           }}
         >
           {this.props.label}
         </Button>
-        <Modal
-          isOpen={this.state.showModal}
-          contentLabel={this.props.contentLabel}
-          style={this.customStyles}
-        >
-          <AnimalForm
-            animal={this.props.animal}
-            onChange={this.props.onChange}
-            submitAnimal={this.props.submitAnimal}
-            resetForm={this.props.resetForm}
-            handleCloseModal={this.handleCloseModal}
-          />
+
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Form</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <AnimalForm
+              animal={this.props.animal}
+              onChange={this.props.onChange}
+              submitAnimal={this.props.submitAnimal}
+              resetForm={this.props.resetForm}
+              handleCloseModal={this.handleClose}
+            />
+          </Modal.Body>
         </Modal>
       </div>
     );

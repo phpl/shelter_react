@@ -21,7 +21,6 @@ class Home extends Component {
   }
 
   onChangeForm(e) {
-    console.log(e.target.value);
     const { name, value } = e.target;
     this.setState({
       animal: { ...this.state.animal, [name]: value }

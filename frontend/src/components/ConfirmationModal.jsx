@@ -1,58 +1,52 @@
 import React, { Component } from "react";
-import { Button } from "react-bootstrap";
-import Modal from "react-modal";
-
-Modal.setAppElement("#root");
+import { Button, Modal } from "react-bootstrap";
 
 export default class FormModal extends Component {
-  constructor() {
-    super();
+  constructor(props, context) {
+    super(props, context);
+
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+
     this.state = {
-      showModal: false
+      show: false
     };
-
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
-  customStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)"
-    }
-  };
-
-  handleOpenModal() {
-    this.setState({ showModal: true });
+  handleClose() {
+    this.setState({ show: false });
   }
 
-  handleCloseModal() {
-    this.setState({ showModal: false });
+  handleShow() {
+    this.setState({ show: true });
   }
 
   render() {
     return (
       <div>
-        <Button onClick={this.handleOpenModal}>{this.props.buttonLabel}</Button>
-        <Modal
-          isOpen={this.state.showModal}
-          contentLabel={this.props.contentLabel}
-          style={this.customStyles}
-        >
-          <h2>Are you sure you want to {this.props.actionLabel}?</h2>
-          <Button onClick={this.handleCloseModal}>No</Button>
-          <Button
-            onClick={() => {
-              this.props.action(this.props.id);
-              this.handleCloseModal();
-            }}
-          >
-            Yes
-          </Button>
+        <Button bsStyle={this.props.buttonStyle} onClick={this.handleShow}>
+          {this.props.buttonLabel}
+        </Button>
+
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirmation</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Are you sure you want to {this.props.actionLabel}?</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleClose}>No</Button>
+            <Button
+              bsStyle={this.props.buttonStyle}
+              onClick={() => {
+                this.props.action(this.props.id);
+                this.handleClose();
+              }}
+            >
+              Yes
+            </Button>
+          </Modal.Footer>
         </Modal>
       </div>
     );
