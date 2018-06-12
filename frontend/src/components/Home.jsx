@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Grid } from "react-bootstrap";
+import { Grid, Jumbotron } from "react-bootstrap";
 import "./Home.css";
 import { home } from "../actions";
 import AnimalTable from "./AnimalTable.jsx";
@@ -45,7 +45,7 @@ class Home extends Component {
   };
 
   selectForEdit = id => {
-    const animalToUpdate = this.props.animals.find(animal => (animal.id === id));
+    const animalToUpdate = this.props.animals.find(animal => animal.id === id);
     let newState = {
       ...this.state,
       animal: animalToUpdate,
@@ -55,7 +55,7 @@ class Home extends Component {
   };
 
   invertAnimalAdoptionState = id => {
-    const animalToUpdate = this.props.animals.find(animal => (animal.id === id));
+    const animalToUpdate = this.props.animals.find(animal => animal.id === id);
     animalToUpdate.adoptionInProgress = !animalToUpdate.adoptionInProgress;
     let newState = {
       ...this.state,
@@ -84,16 +84,20 @@ class Home extends Component {
   render() {
     return (
       <Grid>
-        <AnimalTable
-          animal={this.state.animal}
-          onChange={this.onChangeForm.bind(this)}
-          submitAnimal={this.submitAnimal.bind(this)}
-          resetForm={this.resetForm.bind(this)}
-          animals={this.props.animals}
-          selectForEdit={this.selectForEdit.bind(this)}
-          deleteAnimal={this.props.deleteAnimal.bind(this)}
-          invertAnimalAdoptionState={this.invertAnimalAdoptionState.bind(this)}
-        />
+        <Jumbotron>
+          <AnimalTable
+            animal={this.state.animal}
+            onChange={this.onChangeForm.bind(this)}
+            submitAnimal={this.submitAnimal.bind(this)}
+            resetForm={this.resetForm.bind(this)}
+            animals={this.props.animals}
+            selectForEdit={this.selectForEdit.bind(this)}
+            deleteAnimal={this.props.deleteAnimal.bind(this)}
+            invertAnimalAdoptionState={this.invertAnimalAdoptionState.bind(
+              this
+            )}
+          />
+        </Jumbotron>
       </Grid>
     );
   }

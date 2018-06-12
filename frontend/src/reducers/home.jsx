@@ -12,7 +12,6 @@ export default function home(state = { animals: [] }, action) {
     }
     case "DELETE_ANIMAL": {
       let { animalId } = action.payload;
-      let index = animalList.findIndex(animal => animal.id === animalId);
       animalList.splice(animalId, 1);
       return { ...state, animals: animalList };
     }
