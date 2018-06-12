@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import "./AnimalTable.css";
 import FormModal from "./FormModal.jsx";
+import ConfirmationModal from "./ConfirmationModal.jsx";
 
 export default class AnimalTable extends Component {
   render() {
@@ -25,7 +26,7 @@ export default class AnimalTable extends Component {
                 edit={false}
               />
             </th>
-            <th />
+            <th> Filter Animals Modal Form </th>
             <th />
           </tr>
         </thead>
@@ -51,16 +52,20 @@ export default class AnimalTable extends Component {
                 />
               </td>
               <td>
-                <Button onClick={() => this.props.deleteAnimal(id)}>
-                  Delete Animal
-                </Button>
+                <ConfirmationModal
+                  id={id}
+                  action={this.props.deleteAnimal}
+                  buttonLabel="Delete Animal"
+                  actionLabel="delete this animal"
+                />
               </td>
               <td>
-                <Button
-                  onClick={() => this.props.invertAnimalAdoptionState(id)}
-                >
-                  Change Animal adoption
-                </Button>
+                <ConfirmationModal
+                  id={id}
+                  action={this.props.invertAnimalAdoptionState}
+                  buttonLabel="Change Animal Adoption"
+                  actionLabel="change this animal adoption state"
+                />
               </td>
             </tr>
           ))}
