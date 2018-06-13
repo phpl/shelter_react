@@ -21,10 +21,18 @@ export default class FormModal extends Component {
     this.setState({ show: true });
   }
 
+  tdButtonStyle = {
+    width: "100%"
+  };
+
   render() {
     return (
       <div>
-        <Button bsStyle={this.props.buttonStyle} onClick={this.handleShow}>
+        <Button
+          style={this.tdButtonStyle}
+          bsStyle={this.props.buttonStyle}
+          onClick={this.handleShow}
+        >
           {this.props.buttonLabel}
         </Button>
 
