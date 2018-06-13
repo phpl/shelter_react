@@ -81,6 +81,8 @@ class Home extends Component {
           .updateAnimal(this.state.animalUpdateId, this.state.animal)
           .then(this.resetForm);
       }
+    } else {
+      this.resetForm();
     }
   };
 
