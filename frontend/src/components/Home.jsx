@@ -72,14 +72,24 @@ class Home extends Component {
   submitAnimal = e => {
     e.preventDefault();
 
-    if (this.state.animalUpdateId == null) {
-      this.props.addAnimal(this.state.animal).then(this.resetForm);
-    } else {
-      this.props
-        .updateAnimal(this.state.animalUpdateId, this.state.animal)
-        .then(this.resetForm);
+    if (!this.areSubimitFieldsEmpty()) {
+      if (this.state.animalUpdateId == null) {
+        this.props.addAnimal(this.state.animal).then(this.resetForm);
+      } else {
+        this.props
+          .updateAnimal(this.state.animalUpdateId, this.state.animal)
+          .then(this.resetForm);
+      }
     }
   };
+
+  areSubimitFieldsEmpty() {
+    return (
+      this.state.animal.name === "" ||
+      this.state.animal.commonName === "" ||
+      this.state.animal.scientificName === ""
+    );
+  }
 
   render() {
     return (
