@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Grid, Jumbotron } from "react-bootstrap";
-import "./Home.css";
 import { home } from "../actions";
 import AnimalTable from "./AnimalTable.jsx";
 
 class Home extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       animal: {
         name: "",
@@ -20,15 +20,15 @@ class Home extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.fetchAnimals();
+  }
+
   onChangeForm(e) {
     const { name, value } = e.target;
     this.setState({
       animal: { ...this.state.animal, [name]: value }
     });
-  }
-
-  componentDidMount() {
-    this.props.fetchAnimals();
   }
 
   resetForm = () => {
@@ -62,6 +62,7 @@ class Home extends Component {
       animal: animalToUpdate,
       animalUpdateId: id
     };
+
     this.setState(newState, () =>
       this.props
         .updateAnimal(this.state.animalUpdateId, this.state.animal)
@@ -73,7 +74,7 @@ class Home extends Component {
     e.preventDefault();
 
     if (!this.areSubimitFieldsEmpty()) {
-      if (this.state.animalUpdateId == null) {
+      if (this.canAddAnimal()) {
         this.props.addAnimal(this.state.animal).then(this.resetForm);
       } else {
         this.props
@@ -89,6 +90,10 @@ class Home extends Component {
       this.state.animal.commonName === "" ||
       this.state.animal.scientificName === ""
     );
+  }
+
+  canAddAnimal() {
+    return this.state.animalUpdateId == null;
   }
 
   render() {

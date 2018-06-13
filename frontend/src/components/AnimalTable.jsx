@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Table, FormGroup, FormControl } from "react-bootstrap";
-import "./AnimalTable.css";
 import FormModal from "./FormModal.jsx";
 import ConfirmationModal from "./ConfirmationModal.jsx";
 
 export default class AnimalTable extends Component {
   constructor(props) {
     super(props);
+
     this.state = { filterText: "", filterAdopted: "all" };
   }
 

@@ -7,7 +7,6 @@ import {
   ButtonGroup,
   HelpBlock
 } from "react-bootstrap";
-import "./AnimalForm.css";
 
 export default class AnimalForm extends Component {
   render() {
