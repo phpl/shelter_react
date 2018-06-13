@@ -79,9 +79,9 @@ export default class AnimalForm extends Component {
   }
 }
 
-function FieldGroup({ id, label, help, ...props }) {
+function FieldGroup({ id, label, help, getValidationState, ...props }) {
   return (
-    <FormGroup controlId={id}>
+    <FormGroup controlId={id}  validationState={props.value === "" ? "error" : "success"}>
       <ControlLabel>{label}</ControlLabel>
       <FormControl {...props} />
       {help && <HelpBlock>{help}</HelpBlock>}
