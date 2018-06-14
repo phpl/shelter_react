@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default class CustomNavbar extends Component {
   render() {
     return (
-      <Navbar inverse default collapseOnSelect>
+      <Navbar default collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">Shelter</Link>
