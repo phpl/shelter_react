@@ -15,4 +15,4 @@ class Animal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name + self.commonName + self.scientificName + self.gender + self.adoptionInProgress
+        return self.name + " " + self.commonName
